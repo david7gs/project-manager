@@ -14,11 +14,18 @@ function App() {
         </div>
         <Footer />
       </div> */}
-      <div className="page-wrap h-screen my-8 flex gap-8">
+      {/* <div className="page-wrap h-screen my-8 flex gap-8">
         <ProjectsSidebar />
         <Viewer />
       </div>
-      <Footer />
+      <Footer /> */}
+      <div className="page-wrap h-screen flex flex-col my-8 justify-around">
+        <div className="flex flex-row gap-8">
+          <ProjectsSidebar />
+          <Viewer />
+        </div>
+        <Footer />
+      </div>
     </ProjectManagerContextProvider>
   );
 }

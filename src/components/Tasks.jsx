@@ -7,7 +7,7 @@ export default function Tasks() {
   const selectedProjectTasks = tasks.filter((task) => task.projectId === selectedProjectId);
 
   return (
-    <section>
+    <section className="tasks">
       <h2 className="text-2xl font-bold mb-4">Tasks</h2>
       <NewTask />
       {selectedProjectTasks.length === 0 && <p className="my-4">This project does not have any tasks yet.</p>}

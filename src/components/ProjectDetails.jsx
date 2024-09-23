@@ -16,7 +16,7 @@ export default function Project() {
     <div className="w-[35rem] mt-16">
       <header className="pb-4 mb-4 border-b-2 border-stone-300">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold mb-2">{selectedProject.title}</h1>
+          <h1 className="text-3xl font-bold mb-8">{selectedProject.title}</h1>
           <button onClick={deleteProject} className="hover:text-teal-300">
             Delete
           </button>
