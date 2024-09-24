@@ -3,7 +3,7 @@ import { useState, createContext } from "react";
 export const ProjectManagerContext = createContext({
   selectedProjectId: "",
   view: "",
-  projectView: "",
+  // projectView: "",
   projects: [],
   tasks: [],
   startNewProject: () => {},
@@ -12,6 +12,7 @@ export const ProjectManagerContext = createContext({
   selectProject: () => {},
   deleteProject: () => {},
   addTask: () => {},
+  editTask: () => {},
   deleteTask: () => {},
   updateView: () => {},
 });
@@ -19,8 +20,9 @@ export const ProjectManagerContext = createContext({
 export default function ProjectManagerContextProvider({ children }) {
   const [masterProjects, setMasterProjects] = useState({
     selectedProjectId: undefined,
-    view: "ABOUT",
-    projectView: undefined,
+    // view: "ABOUT",
+    // projectView: undefined,
+    view: "LANDING",
     projects: [],
     tasks: [],
   });
@@ -31,7 +33,8 @@ export default function ProjectManagerContextProvider({ children }) {
       return {
         ...prevState,
         selectedProjectId: null,
-        projectView: "NEW_PROJECT",
+        // projectView: "NEW_PROJECT",
+        view: "NEW_PROJECT",
       };
     });
   }
@@ -42,7 +45,8 @@ export default function ProjectManagerContextProvider({ children }) {
       return {
         ...prevState,
         selectedProjectId: undefined,
-        projectView: undefined,
+        // projectView: undefined,
+        view: "LANDING",
       };
     });
   }
@@ -57,7 +61,8 @@ export default function ProjectManagerContextProvider({ children }) {
       return {
         ...prevState,
         selectedProjectId: undefined,
-        projectView: undefined,
+        // projectView: undefined,
+        view: "LANDING",
         projects: [...prevState.projects, newProject],
       };
     });
@@ -70,6 +75,7 @@ export default function ProjectManagerContextProvider({ children }) {
         ...prevState,
         selectedProjectId: id,
         projectView: "PROJECT_DETAILS",
+        view: "PROJECT_DETAILS",
       };
     });
   }
@@ -80,7 +86,8 @@ export default function ProjectManagerContextProvider({ children }) {
       return {
         ...prevState,
         selectedProjectId: undefined,
-        projectView: undefined,
+        // projectView: undefined,
+        projectView: "LANDING",
         projects: prevState.projects.filter((project) => project.id !== prevState.selectedProjectId),
       };
     });
@@ -97,6 +104,22 @@ export default function ProjectManagerContextProvider({ children }) {
       return {
         ...prevState,
         tasks: [...prevState.tasks, newTask],
+      };
+    });
+  }
+
+  function handleEditTask(text, editingTaskId) {
+    console.log(`#/# CONTEX - handleEditTask firing and text = ${text} and editingTaskId`, editingTaskId);
+
+    setMasterProjects((prevState) => {
+      const index = prevState.tasks.findIndex((task) => task.id === editingTaskId);
+      let updatedTasks = [...prevState.tasks];
+      if (index !== -1) {
+        updatedTasks[index].task = text;
+      }
+      return {
+        ...prevState,
+        tasks: [...updatedTasks],
       };
     });
   }
@@ -133,6 +156,7 @@ export default function ProjectManagerContextProvider({ children }) {
     selectProject: handleSelectProject,
     deleteProject: handleDeleteProject,
     addTask: handleAddTask,
+    editTask: handleEditTask,
     deleteTask: handleDeleteTask,
     updateView: handleUpdateView,
   };

@@ -8,11 +8,16 @@ export default function Viewer() {
   const { view, projectView } = useContext(ProjectManagerContext);
 
   let showView = <LandingScreen />;
-  if (projectView === "NEW_PROJECT") {
+  // if (projectView === "NEW_PROJECT") {
+  if (view === "NEW_PROJECT") {
     showView = <NewProject />;
   }
-  if (projectView === "PROJECT_DETAILS") {
+  // if (projectView === "PROJECT_DETAILS") {
+  if (view === "PROJECT_DETAILS") {
     showView = <ProjectDetails />;
+  }
+  if (view === "LANDING") {
+    showView = <LandingScreen />;
   }
 
   return <main className="content w-[35rem]">{showView}</main>;

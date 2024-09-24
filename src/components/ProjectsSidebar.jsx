@@ -7,7 +7,7 @@ export default function ProjectsSidebar() {
 
   return (
     <aside className="w-1/3 px-8 py-16 bg-slate-800 sm:text-5xl md:w-72 rounded-r-xl">
-      <h2 className="mb-8 font-bold uppercase md:text-xl text-stone-100">My Projects</h2>
+      <h2 className="mb-8 font-bold uppercase md:text-xl text-stone-100">Active Projects</h2>
       <div>
         <Button onClick={startNewProject}>+ Add Project</Button>
       </div>

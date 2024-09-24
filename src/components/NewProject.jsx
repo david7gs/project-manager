@@ -40,7 +40,7 @@ export default function NewProject() {
         <p className="text-stone-600 mb-4">Looks like you forgot to add some information for your project.</p>
         <p className="text-stone-600 mb-4">Please make sure to provide a value for each input</p>
       </Modal>
-      <div className="w-[35rem] mt-16">
+      <div className="add-new-project w-[35rem] mt-16">
         <menu className="flex items-center justify-end gap-4 my-4">
           <li>
             <button onClick={cancelNewProject} className="hover:text-teal-300">
