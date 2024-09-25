@@ -3,13 +3,13 @@ import { useState, createContext } from "react";
 export const ProjectManagerContext = createContext({
   selectedProjectId: "",
   view: "",
-  // projectView: "",
   projects: [],
   tasks: [],
   startNewProject: () => {},
   cancelNewProject: () => {},
   addProject: () => {},
   selectProject: () => {},
+  editProject: () => {},
   deleteProject: () => {},
   addTask: () => {},
   editTask: () => {},
@@ -20,39 +20,32 @@ export const ProjectManagerContext = createContext({
 export default function ProjectManagerContextProvider({ children }) {
   const [masterProjects, setMasterProjects] = useState({
     selectedProjectId: undefined,
-    // view: "ABOUT",
-    // projectView: undefined,
     view: "LANDING",
     projects: [],
     tasks: [],
   });
 
   function handleStartNewProject() {
-    console.log(`handleStartNewProject firing`);
     setMasterProjects((prevState) => {
       return {
         ...prevState,
         selectedProjectId: null,
-        // projectView: "NEW_PROJECT",
         view: "NEW_PROJECT",
       };
     });
   }
 
   function handleCancelNewProject() {
-    console.log(`handleCancelNewProject firing`);
     setMasterProjects((prevState) => {
       return {
         ...prevState,
         selectedProjectId: undefined,
-        // projectView: undefined,
         view: "LANDING",
       };
     });
   }
 
   function handleAddProject(newProjectData) {
-    console.log(`handleAddProject firing`);
     const newProject = {
       ...newProjectData,
       id: new Date().valueOf(),
@@ -61,7 +54,6 @@ export default function ProjectManagerContextProvider({ children }) {
       return {
         ...prevState,
         selectedProjectId: undefined,
-        // projectView: undefined,
         view: "LANDING",
         projects: [...prevState.projects, newProject],
       };
@@ -69,7 +61,6 @@ export default function ProjectManagerContextProvider({ children }) {
   }
 
   function handleSelectProject(id) {
-    console.log(`handleSelectProject firing`);
     setMasterProjects((prevState) => {
       return {
         ...prevState,
@@ -81,20 +72,28 @@ export default function ProjectManagerContextProvider({ children }) {
   }
 
   function handleDeleteProject() {
-    console.log(`handleDeleteProject firing`);
     setMasterProjects((prevState) => {
       return {
         ...prevState,
         selectedProjectId: undefined,
-        // projectView: undefined,
         projectView: "LANDING",
         projects: prevState.projects.filter((project) => project.id !== prevState.selectedProjectId),
       };
     });
   }
 
+  function handleEditProjectField(text, field) {
+    setMasterProjects((prevState) => {
+      const index = prevState.projects.findIndex((project) => project.id === prevState.selectedProjectId);
+      let updatedProjects = [...prevState.projects];
+      if (index !== -1) {
+        updatedProjects[index][field] = text;
+      }
+      return { ...prevState, projects: [...updatedProjects] };
+    });
+  }
+
   function handleAddTask(text) {
-    console.log(`handleAddTask firing`);
     setMasterProjects((prevState) => {
       const newTask = {
         task: text,
@@ -109,8 +108,6 @@ export default function ProjectManagerContextProvider({ children }) {
   }
 
   function handleEditTask(text, editingTaskId) {
-    console.log(`#/# CONTEX - handleEditTask firing and text = ${text} and editingTaskId`, editingTaskId);
-
     setMasterProjects((prevState) => {
       const index = prevState.tasks.findIndex((task) => task.id === editingTaskId);
       let updatedTasks = [...prevState.tasks];
@@ -125,7 +122,6 @@ export default function ProjectManagerContextProvider({ children }) {
   }
 
   function handleDeleteTask(id) {
-    console.log(`handleDeleteTask firing`);
     setMasterProjects((prevState) => {
       return {
         ...prevState,
@@ -135,7 +131,6 @@ export default function ProjectManagerContextProvider({ children }) {
   }
 
   function handleUpdateView(view) {
-    console.log(`handleUpdateView firing with view = ${view}`);
     setMasterProjects((prevState) => {
       return {
         ...prevState,
@@ -154,6 +149,7 @@ export default function ProjectManagerContextProvider({ children }) {
     cancelNewProject: handleCancelNewProject,
     addProject: handleAddProject,
     selectProject: handleSelectProject,
+    editProject: handleEditProjectField,
     deleteProject: handleDeleteProject,
     addTask: handleAddTask,
     editTask: handleEditTask,

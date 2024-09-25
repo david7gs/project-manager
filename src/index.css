@@ -61,6 +61,58 @@ aside button {
   color: #f5f5f4;
 }
 
+.landing-page__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-page__content-heading {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.landing-page__content-heading h2 {
+  font-size: 1.5rem;
+  display: block;
+}
+
+.react-logo {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+.editable-field {
+  display: block;
+  margin-bottom: 1rem;
+  min-height: 36px;
+}
+
+.editable-field p {
+  padding: 4px 0 0 4px;
+}
+
+.editable-field button {
+  padding-left: 1rem;
+}
+
+.input-field {
+  color: rgb(226 232 240);
+  padding: 0.25rem;
+  background-color: rgb(45 212 191 / 0.1);
+  border-color: rgb(94 234 212 / 0.2);
+  border-bottom-width: 2px;
+  border-radius: 0.375rem;
+  width: 340px;
+}
+
+.input-field:focus {
+  border-color: rgb(94 234 212 / 0.5);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
 ::-webkit-calendar-picker-indicator {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
 }
