@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import { ProjectManagerContext } from "../store/project_manager_contex";
 import Modal from "./Modal";
 
@@ -7,6 +7,9 @@ export default function TaskListItem({ task }) {
   const [isEdit, setEdit] = useState(false);
   const modal = useRef();
   const { editTask, deleteTask } = useContext(ProjectManagerContext);
+  useEffect(() => {
+    setEdit(false);
+  }, [task.id]);
 
   const classes = "w-64 p-1 border-b-2 rounded-md border-teal-300/20 focus:border-teal-300/50 bg-teal-400/10 text-slate-200 focus:outline-none focus:border-stone-600";
 
@@ -16,7 +19,7 @@ export default function TaskListItem({ task }) {
 
   let taskField = <span className="task">{task.task}</span>;
   let taskEditButton = (
-    <button id={task.id} onClick={() => handleEditTask(task.id)} className="edit hover:text-green-500">
+    <button id={task.id} onClick={() => handleEditTask(task.id)} className="edit hover:text-teal-400">
       Edit
     </button>
   );
@@ -24,21 +27,20 @@ export default function TaskListItem({ task }) {
   if (isEdit) {
     taskField = <input className={classes} type="text" value={taskInput} onChange={handleChange} />;
     taskEditButton = (
-      <button id={task.id} onClick={() => handleSaveTask(task.id)} className="save hover:text-green-500">
+      <button id={task.id} onClick={() => handleSaveTask(task.id)} className="save hover:text-teal-400">
         Save
       </button>
     );
   }
 
   function handleEditTask(id) {
-    console.log(`#/# EDIT - handleEditTask in TaskListItem firing`);
+    setTaskInput(task.task);
     setEdit((prevState) => {
       return !prevState;
     });
   }
 
   function handleSaveTask(id) {
-    console.log(`#/# SAVE - handleSaveTask firing with task.id`, id);
     if (taskInput.trim() === "") {
       modal.current.open();
       return;
@@ -48,8 +50,6 @@ export default function TaskListItem({ task }) {
       return !prevState;
     });
   }
-
-  function handleClick() {}
 
   return (
     <>
