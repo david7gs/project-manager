@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from "react";
+import { useContext, useRef } from "react";
 import { ProjectManagerContext } from "../store/project_manager_contex";
 import Tasks from "./Tasks";
 import Modal from "./Modal";
@@ -7,12 +7,17 @@ import EditableField from "./EditableField";
 export default function ProjectView() {
   const { selectedProjectId, projects, deleteProject, editProject } = useContext(ProjectManagerContext);
   const selectedProject = projects.find((project) => project.id === selectedProjectId);
+
   const modal = useRef();
+  // const title = useRef();
+  // const description = useRef();
+  // const dueDate = useRef();
 
   const formattedDate = new Date(selectedProject.dueDate).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
+    timeZone: "UTC",
   });
 
   return (
@@ -25,20 +30,18 @@ export default function ProjectView() {
 
       <div className="project-view w-[35rem] mt-16">
         <header className="pb-4 mb-4 border-b-2 border-stone-300">
-          <div className="project-title flex items-center justify-between">
-            <EditableField data={selectedProject} projectProp="title">
+          <div className="project-title heading flex items-center justify-between">
+            <EditableField data={selectedProject} type="title">
               <h1 className="text-3xl font-bold mb-8">{selectedProject.title}</h1>
             </EditableField>
             <button onClick={deleteProject} className="hover:text-teal-300">
               Delete
             </button>
           </div>
-
-          <EditableField data={selectedProject} projectProp="dueDate">
-            <p className="mb-4">{formattedDate}</p>
+          <EditableField data={selectedProject} type="dueDate">
+            <p>{formattedDate}</p>
           </EditableField>
-
-          <EditableField data={selectedProject} projectProp="description">
+          <EditableField data={selectedProject} type="description">
             <p className="whitespace-pre-wrap">{selectedProject.description}</p>
           </EditableField>
         </header>

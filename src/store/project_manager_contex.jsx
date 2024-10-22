@@ -65,7 +65,6 @@ export default function ProjectManagerContextProvider({ children }) {
       return {
         ...prevState,
         selectedProjectId: id,
-        projectView: "PROJECT_DETAILS",
         view: "PROJECT_DETAILS",
       };
     });
@@ -76,7 +75,7 @@ export default function ProjectManagerContextProvider({ children }) {
       return {
         ...prevState,
         selectedProjectId: undefined,
-        projectView: "LANDING",
+        view: "LANDING",
         projects: prevState.projects.filter((project) => project.id !== prevState.selectedProjectId),
       };
     });
@@ -87,7 +86,7 @@ export default function ProjectManagerContextProvider({ children }) {
       const index = prevState.projects.findIndex((project) => project.id === prevState.selectedProjectId);
       let updatedProjects = [...prevState.projects];
       if (index !== -1) {
-        updatedProjects[index][field] = text;
+        updatedProjects[index][field] = text.replace(/<[^>]*>/g, "");
       }
       return { ...prevState, projects: [...updatedProjects] };
     });

@@ -20,7 +20,7 @@ export default function LandingScreen() {
             </span>
             {"   "}
             Repo on GitHub{" "}
-            <a href="#" className="react-logo" aria-label="github link">
+            <a href="https://github.com/david7gs/project-manager" target="_blank" className="react-logo block fill-slate-200 hover:fill-slate-400" aria-label="link to github">
               <GitHub />
             </a>
           </h3>
